@@ -1,0 +1,26 @@
+﻿@page
+@model firstRazor.Pages.StudentPage.CreateModel
+@{
+    Layout = "_myLayout";
+}
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    <label asp-for="@Model.student.FullName"></label>
+    @Html.TextBoxFor(c => c.student.FullName)
+    <span asp-validation-for="student.FullName" class="text-danger"></span>
+    <br/>
+    <label asp-for="@Model.student.Enrollments"></label>
+    @Html.ListBox("SelectedCourseIds", Model.Enrollments as List<SelectListItem>, new { @class = "form-control", size = 6 })
+    <br />
+
+    <label asp-for="@Model.student.EnrollmentDate"></label>
+    @Html.TextBoxFor(c => c.student.EnrollmentDate)
+    @Html.ValidationMessageFor(c => c.student.EnrollmentDate, null, new { @class = "text-danger" })
+    <br />
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
+@section Scripts
+{
+<partial name="_ValidationScriptsPartial"/>
+}

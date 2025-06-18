@@ -1,0 +1,52 @@
+﻿@page
+
+@model firstRazor.Pages.StudentPage.IndexModel
+@{
+    Layout = "_myLayout";
+}
+
+<form method="post">
+    <div class="form-group">
+        <label for="query">Search By Student Name:</label>
+        <input style="display:inline" type="text" name="stdName" class="form-control w-auto" placeholder="Enter Student Name" />
+        <button style="display:inline" type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+        <a asp-page="/StudentPage/Create" class="btn btn-primary">Add New</a>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Student ID</th>
+            <th scope="col">Student Name</th>                
+            <th scope="col">Student Courses Enrollments</th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var item in Model.Students)
+            {<tr>
+                  <td>@item.Id</td>
+                  <td>@item.FullName</td>
+                 <td>
+                    <select class="form-select">
+                        @foreach (var enrolment in item.Enrollments)
+                        {
+                            <option>@enrolment.Course.Title</option>
+                        }
+                    </select>
+                 </td>
+                 <td>
+                    <a asp-page="/StudentPage/Edit" asp-route-id="@item.Id" class="btn btn-dark">Edit</a>
+                </td>
+                <td>
+                    <form asp-route-id="@item.Id" method="post" asp-page-handler="Delete">
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    </form>
+
+                </td>
+             </tr>
+            }
+    </tbody>
+</table>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

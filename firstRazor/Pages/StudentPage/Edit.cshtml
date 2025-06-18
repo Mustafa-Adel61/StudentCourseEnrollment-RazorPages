@@ -1,0 +1,35 @@
+﻿@page
+@model firstRazor.Pages.StudentPage.EditModel
+@{
+    Layout = "_myLayout";
+}
+        @using (Html.BeginForm())
+        {
+            @Html.DisplayNameFor(c => c.student.Id)
+            @Html.TextBoxFor(c => c.student.Id, new { @readonly = "readonly" })
+            @Html.ValidationMessageFor(c => c.student.Id, null, new { @class = "text-danger" })
+            <br />
+            @Html.DisplayNameFor(c => c.student.FullName)
+            @Html.TextBoxFor(c => c.student.FullName)
+            @Html.ValidationMessageFor(c => c.student.FullName, null, new { @class = "danger-class" })
+            <br />
+
+            @try
+            {
+             
+                    @Html.ListBox("SelectedCourseIds", Model.Enrollments as List<SelectListItem>, new { @class = "form-control", size = 6 })
+
+               
+            }
+            catch { }
+
+            <br />
+
+                <button type="submit" class="btn btn-success">Save</button>
+          
+        }
+    }
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
